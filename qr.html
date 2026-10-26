@@ -20,26 +20,31 @@
            (QR을 만드는 프로그램이 이 파일 안에 통째로 들어 있어요.)
          - 단, 손님이 QR을 찍고 메뉴판을 보려면
            메뉴판(index.html)이 "인터넷 주소"로 올라가 있어야 합니다.
-         - 글꼴(고운 돋움)만 인터넷이 있을 때 불러와요. 없으면 맑은 고딕으로 나옵니다.
+         - 글꼴(프리텐다드, 고운 돋움)만 인터넷이 있을 때 불러와요. 없으면 맑은 고딕으로 나옵니다.
 
        ■ 자주 고치는 곳
          - 처음 나오는 가게 이름 / 안내 문구 : 아래쪽 "초기값 설정" 칸의 큰따옴표 안 글자
          - 색깔 : 바로 아래 <style> 맨 위 :root 칸의 # 숫자
        ═══════════════════════════════════════════════════════════════════ -->
 
+  <!-- 글꼴: 프리텐다드 → 고운 돋움 → 맑은 고딕 순서로 써요 (index.html과 같아요) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== 색깔 설정 (index.html과 같은 하늘색 + 크림색) ===== */
+    /* ===== 색깔 설정 (index.html과 같은 연보라색 + 하늘색) ===== */
     :root {
-      --sky:        #CFE8F7;
-      --sky-mid:    #E3F1F8;
-      --cream:      #F5EFE6;
-      --sky-strong: #3F86B8;
-      --ink:        #2F4A5E;
-      --ink-soft:   #52697A;
+      --sky:        #DCEFFF;   /* 아주 연한 하늘색 (배경) */
+      --sky-mid:    #ECE6FF;   /* 아주 연한 연보라 (배경) */
+      --cream:      #F4F1FF;   /* 아주 연한 보랏빛 흰색 (배경 아래쪽) */
+      --sky-strong: #6A4FD6;   /* 진한 보라: 테두리, 강조 글자 */
+      --ink:        #2B2745;   /* 기본 글자: 짙은 남보라 */
+      --ink-soft:   #5E5A7A;   /* 설명 글자 */
+      --button-from: #7458E0;  /* 버튼 색 (왼쪽 보라) */
+      --button-to:   #3E8FD8;  /* 버튼 색 (오른쪽 파랑) */
+      /* 예전 색 (하늘색+크림색): #CFE8F7 #E3F1F8 #F5EFE6 #3F86B8 #2F4A5E #52697A */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,13 +55,13 @@
     }
 
     body {
-      font-family: 'Gowun Dodum', 'Malgun Gothic', '맑은 고딕', sans-serif;
+      font-family: 'Pretendard Variable', 'Pretendard', 'Gowun Dodum', 'Malgun Gothic', '맑은 고딕', sans-serif;
       color: var(--ink);
       background-color: var(--sky);
       background-image:
-        radial-gradient(circle at 12% 6%,  rgba(255,255,255,0.75), transparent 40%),
-        radial-gradient(circle at 92% 30%, rgba(143,196,230,0.45), transparent 42%),
-        radial-gradient(circle at 10% 78%, rgba(245,239,230,0.95), transparent 45%),
+        radial-gradient(circle at 12% 6%,  rgba(164,139,240,0.35), transparent 40%),
+        radial-gradient(circle at 92% 30%, rgba(124,196,242,0.40), transparent 42%),
+        radial-gradient(circle at 10% 78%, rgba(255,255,255,0.80), transparent 45%),
         linear-gradient(170deg, var(--sky) 0%, var(--sky-mid) 45%, var(--cream) 100%);
       background-attachment: fixed;
       min-height: 100vh;
@@ -68,15 +73,18 @@
     .page { max-width: 520px; margin: 0 auto; padding: 32px 20px 56px; }
 
     .glass {
-      background: rgba(245, 239, 230, 0.6);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(63, 134, 184, 0.14);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.30));
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 28px;
+      box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.95),
+        0 2px 6px rgba(70, 60, 140, 0.06),
+        0 28px 44px -20px rgba(70, 60, 140, 0.35);
     }
 
-    h1 { font-size: 28px; font-weight: normal; text-align: center; margin-bottom: 6px; }
+    h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; text-align: center; margin-bottom: 6px; }
     .lead { text-align: center; color: var(--ink-soft); font-size: 15px; margin-bottom: 22px; }
 
     /* ----- 입력 칸 ----- */
@@ -92,11 +100,11 @@
       font-size: 17px;
       color: var(--ink);
       background: rgba(255, 255, 255, 0.8);
-      border: 1.5px solid rgba(63, 134, 184, 0.35);
+      border: 1.5px solid rgba(106, 79, 214, 0.35);
       border-radius: 16px;
       outline: none;
     }
-    .field input:focus { border-color: var(--sky-strong); box-shadow: 0 0 0 3px rgba(63, 134, 184, 0.2); }
+    .field input:focus { border-color: var(--sky-strong); box-shadow: 0 0 0 3px rgba(106, 79, 214, 0.2); }
 
     /* ----- 버튼 ----- */
     .btn {
@@ -110,13 +118,14 @@
       font-family: inherit;
       font-size: 18px;
       cursor: pointer;
+      font-weight: 700;
       color: #fff;
-      background: var(--sky-strong);
-      box-shadow: 0 8px 18px rgba(63, 134, 184, 0.35);
+      background: linear-gradient(135deg, var(--button-from), var(--button-to));
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 14px 24px -12px rgba(80, 70, 200, 0.6);
       -webkit-tap-highlight-color: transparent;
     }
     .btn:active { transform: scale(0.98); }
-    .btn.secondary { color: var(--ink); background: rgba(255, 255, 255, 0.7); box-shadow: none; border: 1.5px solid rgba(63, 134, 184, 0.35); }
+    .btn.secondary { color: var(--ink); background: rgba(255, 255, 255, 0.7); box-shadow: none; border: 1.5px solid rgba(106, 79, 214, 0.35); }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
     .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
 
@@ -2517,7 +2526,7 @@ var qrcode = function() {
     가게칸.value = 처음_가게이름;
     문구칸.value = 처음_안내문구;
 
-    const 글꼴 = "'Gowun Dodum', 'Malgun Gothic', '맑은 고딕', sans-serif";
+    const 글꼴 = "'Pretendard Variable', 'Pretendard', 'Gowun Dodum', 'Malgun Gothic', '맑은 고딕', sans-serif";
     let 만들어짐 = false;
 
     function 알림(글자, 오류) {
@@ -2569,10 +2578,14 @@ var qrcode = function() {
       캔버스.height = 높이;
       const ctx = 캔버스.getContext("2d");
 
-      // 카드 바탕: 크림색 + 하늘색 테두리
-      ctx.fillStyle = "#F5EFE6";
+      // 카드 바탕: 연보라 → 하늘색으로 은은하게 + 보라 테두리
+      // (예전 색: 바탕 #F5EFE6, 테두리 #3F86B8)
+      const 바탕 = ctx.createLinearGradient(0, 0, 폭, 높이);
+      바탕.addColorStop(0, "#ECE6FF");
+      바탕.addColorStop(1, "#DCEFFF");
+      ctx.fillStyle = 바탕;
       ctx.fillRect(0, 0, 폭, 높이);
-      ctx.strokeStyle = "#3F86B8";
+      ctx.strokeStyle = "#8E72F0";
       ctx.lineWidth = 14;
       ctx.strokeRect(7, 7, 폭 - 14, 높이 - 14);
 
@@ -2581,7 +2594,7 @@ var qrcode = function() {
 
       // 가게 이름
       if (가게) {
-        ctx.fillStyle = "#2F4A5E";
+        ctx.fillStyle = "#2B2745";
         글자맞춤(ctx, 가게, 폭 - 200, 110, 50);
         ctx.fillText(가게, 폭 / 2, 위쪽 / 2 + 5);
       }
@@ -2607,7 +2620,7 @@ var qrcode = function() {
 
       // 안내 문구
       if (문구) {
-        ctx.fillStyle = "#3F86B8";
+        ctx.fillStyle = "#6A4FD6";
         글자맞춤(ctx, 문구, 폭 - 200, 100, 46);
         ctx.fillText(문구, 폭 / 2, 판Y + 흰판크기 + 아래쪽 / 2);
       }
@@ -2639,7 +2652,13 @@ var qrcode = function() {
     function 글꼴준비() {
       if (!document.fonts || !document.fonts.load) return Promise.resolve();
       const 기다림 = new Promise(function (끝) { setTimeout(끝, 2000); });
-      return Promise.race([document.fonts.load("40px 'Gowun Dodum'", "가게 이름 메뉴판 보기").catch(function () {}), 기다림]);
+      return Promise.race([
+        Promise.all([
+          document.fonts.load("40px 'Pretendard Variable'", "가게 이름 메뉴판 보기").catch(function () {}),
+          document.fonts.load("40px 'Gowun Dodum'", "가게 이름 메뉴판 보기").catch(function () {})
+        ]),
+        기다림
+      ]);
     }
 
     만들기버튼.addEventListener("click", function () { 글꼴준비().then(만들기); });
